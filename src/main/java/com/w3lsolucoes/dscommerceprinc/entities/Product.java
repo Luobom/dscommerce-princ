@@ -1,23 +1,25 @@
 package com.w3lsolucoes.dscommerceprinc.entities;
 
 import jakarta.persistence.*;
-import java.util.Set;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
 
 @Entity
 @Table(name = "tb_product")
 public class Product {
-
-    // Attributes
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
-    @Column(columnDefinition = "TEXT")
+    @Column (columnDefinition = "TEXT")
     private String description;
+
     private Double price;
     private String imgUrl;
 
@@ -27,8 +29,9 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
 
-    // Constructors
     public Product() {
     }
 
@@ -40,7 +43,7 @@ public class Product {
         this.imgUrl = imgUrl;
     }
 
-    // Getters and Setters
+    // getter and setters
 
     public Long getId() {
         return id;
@@ -87,24 +90,29 @@ public class Product {
     }
 
 
-    // hashCode and equals
+
+    public Set<OrderItem> getItems() {
+        return items;
+    }
+
+    public List<Order> getOrders() {
+        return items.stream().map(x -> x.getOrder()).toList();
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Product product)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        return getId() != null ? getId().equals(product.getId()) : product.getId() == null;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
     }
 
-    // toString
     @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", imgUrl='" + imgUrl + '\'' +
-                '}';
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
+
+
 }

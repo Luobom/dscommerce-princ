@@ -3,13 +3,13 @@ package com.w3lsolucoes.dscommerceprinc.entities;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
 public class Category {
 
-    // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,7 +18,7 @@ public class Category {
     @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
 
-    // Constructors
+
     public Category() {
     }
 
@@ -27,7 +27,8 @@ public class Category {
         this.name = name;
     }
 
-    // Getters and Setters
+
+    // getter and setters
 
     public Long getId() {
         return id;
@@ -49,25 +50,17 @@ public class Category {
         return products;
     }
 
-
-    // hashCode and equals
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Category category)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        return getId() != null ? getId().equals(category.getId()) : category.getId() == null;
+        Category category = (Category) o;
+        return Objects.equals(id, category.id);
     }
 
-
-    // toString
     @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
-
-
 }
