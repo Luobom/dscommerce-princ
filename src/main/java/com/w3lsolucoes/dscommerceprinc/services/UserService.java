@@ -21,15 +21,22 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<UserDetailProjection> list = userRepository.searchUserAndRole(username);
-        if (list.isEmpty()) {
+        List<UserDetailProjection> userDetailProjections = userRepository.searchUserAndRole(username);
+        if (userDetailProjections.isEmpty()) {
             throw new UsernameNotFoundException("Email not found");
         }
         var user = new User();
-        BeanUtils.copyProperties(list.getFirst(), user);
+        BeanUtils.copyProperties(userDetailProjections.getFirst(), user);
         user.setEmail(username);
-        if (list.getFirst().getRoleId() != null) {
-            list.forEach(x -> user.addRole(new Role(x.getRoleId(), x.getAuthority())));
+
+        if (userDetailProjections.getFirst().getRoleId() != null) {
+
+            userDetailProjections.forEach(x -> user.addRole(new Role(x.getRoleId(), x.getAuthority())));
+/
+            // debug
+            user.getRoles().forEach(x -> System.out.println("Role: " + x.getAuthority()));
+        } else {
+            System.out.println("User has no roles");
         }
         return user;
     }
