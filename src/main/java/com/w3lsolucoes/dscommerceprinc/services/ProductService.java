@@ -1,5 +1,6 @@
 package com.w3lsolucoes.dscommerceprinc.services;
 
+import com.w3lsolucoes.dscommerceprinc.dto.ProductMinDTO;
 import com.w3lsolucoes.dscommerceprinc.entities.Product;
 import com.w3lsolucoes.dscommerceprinc.repositories.ProductRepository;
 import com.w3lsolucoes.dscommerceprinc.services.exceptions.DataBaseException;
@@ -37,9 +38,9 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(Pageable pageable) {
+    public Page<ProductMinDTO> findAll(Pageable pageable) {
         Page<Product> productPage = repository.findAll(pageable);
-        return productPage.map(ProductDTO::new);
+        return productPage.map(ProductMinDTO::new);
     }
 
     @Transactional(readOnly = true)

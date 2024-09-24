@@ -1,6 +1,7 @@
 package com.w3lsolucoes.dscommerceprinc.controllers;
 
 import com.w3lsolucoes.dscommerceprinc.dto.ProductDTO;
+import com.w3lsolucoes.dscommerceprinc.dto.ProductMinDTO;
 import com.w3lsolucoes.dscommerceprinc.entities.Product;
 import com.w3lsolucoes.dscommerceprinc.repositories.ProductRepository;
 import com.w3lsolucoes.dscommerceprinc.services.ProductService;
@@ -35,7 +36,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) {
+    public ResponseEntity<Page<ProductMinDTO>> findAll(Pageable pageable) {
         // return ResponseEntity.ok(service.findAll(pageable));
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable));
     }
