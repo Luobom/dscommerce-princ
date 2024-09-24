@@ -155,10 +155,6 @@ public class AuthorizationServerConfig {
 			CustomUserAuthorities user = (CustomUserAuthorities) principal.getDetails();
 			List<String> authorities = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
 
-
-			// debug
-			System.out.println("authorities by AuthorizationServerConfig: " + authorities);
-
 			if (context.getTokenType().getValue().equals("access_token")) {
 				// @formatter:off
 				context.getClaims()
