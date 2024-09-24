@@ -154,9 +154,10 @@ public class AuthorizationServerConfig {
 			OAuth2ClientAuthenticationToken principal = context.getPrincipal();
 			CustomUserAuthorities user = (CustomUserAuthorities) principal.getDetails();
 			List<String> authorities = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
-/
+
+
 			// debug
-			System.out.println("authorities: " + authorities);
+			System.out.println("authorities by AuthorizationServerConfig: " + authorities);
 
 			if (context.getTokenType().getValue().equals("access_token")) {
 				// @formatter:off

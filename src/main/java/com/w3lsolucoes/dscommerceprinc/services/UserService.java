@@ -32,9 +32,9 @@ public class UserService implements UserDetailsService {
         if (userDetailProjections.getFirst().getRoleId() != null) {
 
             userDetailProjections.forEach(x -> user.addRole(new Role(x.getRoleId(), x.getAuthority())));
-/
+
             // debug
-            user.getRoles().forEach(x -> System.out.println("Role: " + x.getAuthority()));
+            user.getRoles().forEach(x -> System.out.println("Role by UserService: " + x.getAuthority()));
         } else {
             System.out.println("User has no roles");
         }
