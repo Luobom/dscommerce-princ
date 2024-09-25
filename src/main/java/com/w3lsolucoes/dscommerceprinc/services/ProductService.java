@@ -1,6 +1,8 @@
 package com.w3lsolucoes.dscommerceprinc.services;
 
+import com.w3lsolucoes.dscommerceprinc.dto.CategoryDTO;
 import com.w3lsolucoes.dscommerceprinc.dto.ProductMinDTO;
+import com.w3lsolucoes.dscommerceprinc.entities.Category;
 import com.w3lsolucoes.dscommerceprinc.entities.Product;
 import com.w3lsolucoes.dscommerceprinc.repositories.ProductRepository;
 import com.w3lsolucoes.dscommerceprinc.services.exceptions.DataBaseException;
@@ -53,6 +55,10 @@ public class ProductService {
     public ProductDTO save(ProductDTO dto) {
         Product product = new Product();
         BeanUtils.copyProperties(dto, product);
+        for (CategoryDTO catDTO : dto.categories()) {
+            product.getCategories().add(new Category(catDTO.id(), catDTO.name()));
+        }
+
         return new ProductDTO(repository.save(product));
     }
 
@@ -62,8 +68,14 @@ public class ProductService {
             Product product = repository.getReferenceById(id);
             String[] ignoredProperties = {"id"};
             BeanUtils.copyProperties(dto, product, ignoredProperties);
+
+            product.getCategories().clear();
+            for (CategoryDTO catDTO : dto.categories()) {
+                product.getCategories().add(new Category(catDTO.id(), catDTO.name()));
+            }
+            
             return new ProductDTO(repository.save(product));
-        }catch (EntityNotFoundException | FatalBeanException e) {
+        } catch (EntityNotFoundException | FatalBeanException e) {
             throw new ResourceNotFoundException(id);
         }
     }

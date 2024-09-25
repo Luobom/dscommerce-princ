@@ -2,8 +2,11 @@ package com.w3lsolucoes.dscommerceprinc.dto;
 
 import com.w3lsolucoes.dscommerceprinc.entities.Product;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 public record ProductDTO(
         Long id,
@@ -15,10 +18,14 @@ public record ProductDTO(
         String description,
         @Positive(message = "O preço deve ser um valor positivo")
         Double price,
-        String imgUrl
+        String imgUrl,
+
+        @NotEmpty(message = "O produto deve ter pelo menos uma categoria")
+        List<CategoryDTO> categories
 ) {
     public ProductDTO(Product entity) {
-        this(entity.getId(), entity.getName(), entity.getDescription(), entity.getPrice(), entity.getImgUrl());
+        this(entity.getId(), entity.getName(), entity.getDescription(), entity.getPrice(), entity.getImgUrl(),
+                entity.getCategories().stream().map(CategoryDTO::new).toList());
     }
 }
 
