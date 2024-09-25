@@ -42,7 +42,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "/search")
-    public ResponseEntity<Page<ProductDTO>> findByName(@RequestParam(name = "name", defaultValue = " ") String name, Pageable pageable) {
+    public ResponseEntity<Page<ProductMinDTO>> findByName(@RequestParam(name = "name", defaultValue = " ") String name, Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name, pageable));
     }
 
