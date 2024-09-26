@@ -73,7 +73,7 @@ public class ProductService {
             for (CategoryDTO catDTO : dto.categories()) {
                 product.getCategories().add(new Category(catDTO.id(), catDTO.name()));
             }
-            
+
             return new ProductDTO(repository.save(product));
         } catch (EntityNotFoundException | FatalBeanException e) {
             throw new ResourceNotFoundException(id);
