@@ -29,15 +29,18 @@ public record OrderDTO(
                 entity.getMoment(),
                 entity.getStatus(),
                 new ClientDTO(entity.getClient()),
-                new PaymentDTO(entity.getPayment()),
+                entity.getPayment() == null ? null : new PaymentDTO(entity.getPayment()),
+
+                // Mapeia os itens para OrderItemDTO
                 entity.getItems().stream().map(OrderItemDTO::new).collect(Collectors.toSet())
         );
     }
 
-    // Método auxiliar para calcular o total a partir dos subtotais dos itens
+    // Métod auxiliar para calcular o total a partir dos subtotais dos itens
     private static Double calculateTotal(Set<OrderItemDTO> items) {
         return items.stream()
                 .mapToDouble(OrderItemDTO::subtotal) // Soma os subtotais de todos os itens
                 .sum();
     }
+
 }

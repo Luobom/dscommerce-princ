@@ -2,11 +2,8 @@ package com.w3lsolucoes.dscommerceprinc.controllers;
 
 import com.w3lsolucoes.dscommerceprinc.dto.ProductDTO;
 import com.w3lsolucoes.dscommerceprinc.dto.ProductMinDTO;
-import com.w3lsolucoes.dscommerceprinc.entities.Product;
-import com.w3lsolucoes.dscommerceprinc.repositories.ProductRepository;
 import com.w3lsolucoes.dscommerceprinc.services.ProductService;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/products")
