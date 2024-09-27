@@ -50,7 +50,7 @@ public class CustomExceptionHandler {
         CustomError error = new CustomError(
                 Instant.now(),
                 status.value(),
-                "Access to the resource is prohibited",
+                "Access to the resource is prohibited to this user",
                 request.getRequestURI()
         );
         return ResponseEntity.status(status).body(error);
