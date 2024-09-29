@@ -40,29 +40,26 @@ public class OrderService {
     @Transactional
     public OrderDTO save( OrderDTO dto) {
 
+        User user = userService.authenticated();
         Order order = new Order();
+        order.setClient(user);
         order.setMoment(Instant.now());
         order.setOrderStatus(OrderStatus.WAITING_PAYMENT);
 
-        User user = userService.authenticated();
-        order.setClient(user);
+        // with for (option 1)
+//        for (OrderItemDTO itemDTO : dto.items()) {
+//            Product product = productRepository.getReferenceById(itemDTO.productId());
+//            OrderItem orderItem = new OrderItem(order, product, itemDTO.quantity(), product.getPrice());
+//            order.getItems().add(orderItem);
+//        }
 
-        for (OrderItemDTO itemDTO : dto.items()) {
+
+        // with lambda stream API (option 2)
+        dto.items().forEach(itemDTO -> {
             Product product = productRepository.getReferenceById(itemDTO.productId());
-            // debug
-            System.out.println(
-                    "id: " + product.getId() +
-                    "\n name: " + product.getName() +
-                    "\n description: " + product.getDescription() +
-                    "\n price: " + product.getPrice() +
-                    "\n quantity: " + itemDTO.quantity() +
-                    "\n imgUrl: " + product.getImgUrl()
-            );
-
-
-            OrderItem orderItem = new OrderItem(order, product, itemDTO.quantity(), itemDTO.price());
+            OrderItem orderItem = new OrderItem(order, product, itemDTO.quantity(), product.getPrice());
             order.getItems().add(orderItem);
-        }
+        });
 
         orderRepository.save(order);
         orderItemRepository.saveAll(order.getItems());

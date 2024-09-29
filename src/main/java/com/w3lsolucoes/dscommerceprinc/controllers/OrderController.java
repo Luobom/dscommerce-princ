@@ -26,15 +26,10 @@ public class OrderController {
     }
 
     // @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
+    @PreAuthorize("hasRole('ROLE_CLIENT')")
     @PostMapping
     public ResponseEntity<OrderDTO> save(@Valid @RequestBody OrderDTO dto) {
-
-        // debug orderitemDTO
-        System.out.println("OrderItemDTO: " + dto.items());
-
         OrderDTO orderDTO = service.save(dto);
-
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(orderDTO.id()).toUri();
         return ResponseEntity.created(uri).body(orderDTO);
