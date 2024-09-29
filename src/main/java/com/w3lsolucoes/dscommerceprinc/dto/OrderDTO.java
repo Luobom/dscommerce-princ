@@ -2,6 +2,7 @@ package com.w3lsolucoes.dscommerceprinc.dto;
 
 import com.w3lsolucoes.dscommerceprinc.entities.Order;
 import com.w3lsolucoes.dscommerceprinc.entities.OrderStatus;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.time.Instant;
 import java.util.Set;
@@ -13,6 +14,8 @@ public record OrderDTO(
         OrderStatus status,
         ClientDTO client,
         PaymentDTO payment,
+
+        @NotEmpty(message = "The order must have at least one item")
         Set<OrderItemDTO> items,
         Double total // novo campo total
 ) {
