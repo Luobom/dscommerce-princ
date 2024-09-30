@@ -18,7 +18,7 @@ public class UserController {
     private UserService service;
 
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT')")
-    @GetMapping(value = "/profile")
+    @GetMapping(value = "/me")
     public ResponseEntity<UserDTO> profile() {
         return ResponseEntity.ok(service.authenticatedDTO());
     }
