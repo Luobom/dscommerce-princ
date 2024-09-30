@@ -14,6 +14,11 @@ public class ValidationError extends CustomError {
 
     public void addError(String field, String defaultMessage) {
         field = field.substring(0, 1).toUpperCase() + field.substring(1);;
+
+        String finalField = field;
+        // remove duplicate error message
+        errors.removeIf(x -> x.getField().equals(finalField));
+        
         errors.add(new FieldMessage(field, defaultMessage));
     }
 }

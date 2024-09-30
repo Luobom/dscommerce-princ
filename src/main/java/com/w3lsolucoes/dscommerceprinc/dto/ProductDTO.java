@@ -1,10 +1,7 @@
 package com.w3lsolucoes.dscommerceprinc.dto;
 
 import com.w3lsolucoes.dscommerceprinc.entities.Product;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.List;
 
@@ -16,6 +13,7 @@ public record ProductDTO(
         @Size(min = 10, message = "A descrição do produto deve ter no mínimo 10 caracteres")
         @NotBlank(message = "Campo obrigatório")
         String description,
+        @NotNull(message = "Campo obrigatório")
         @Positive(message = "O preço deve ser um valor positivo")
         Double price,
         String imgUrl,
@@ -23,9 +21,11 @@ public record ProductDTO(
         @NotEmpty(message = "O produto deve ter pelo menos uma categoria")
         List<CategoryDTO> categories
 ) {
+
     public ProductDTO(Product entity) {
         this(entity.getId(), entity.getName(), entity.getDescription(), entity.getPrice(), entity.getImgUrl(),
                 entity.getCategories().stream().map(CategoryDTO::new).toList());
     }
+
 }
 
