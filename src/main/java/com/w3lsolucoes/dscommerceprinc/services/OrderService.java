@@ -17,22 +17,28 @@ import java.time.Instant;
 public class OrderService {
 
     @Autowired
-    OrderRepository orderRepository;
+    UserService userService;
 
     @Autowired
-    ProductRepository productRepository;
+    OrderRepository orderRepository;
 
     @Autowired
     OrderItemRepository orderItemRepository;
 
     @Autowired
-    UserService userService;
+    ProductRepository productRepository;
 
+    @Autowired
+    AuthService authService;
 
     @Transactional(readOnly = true)
     public OrderDTO findById(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Resource not found: " + id));
+
+        // Check if the authenticated user is the owner of the order or is an admin
+        authService.validateSelfOrAdmin(order.getClient().getId());
+
         return new OrderDTO(order);
     }
 
