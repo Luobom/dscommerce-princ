@@ -17,12 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.w3lsolucoes.dscommerceprinc.dto.ProductDTO;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
-
-import java.util.List;
-import java.util.Optional;
 
 
 @Service

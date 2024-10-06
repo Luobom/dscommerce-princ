@@ -4,6 +4,8 @@ import com.w3lsolucoes.dscommerceprinc.entities.Product;
 import jakarta.validation.constraints.*;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public record ProductDTO(
         Long id,
@@ -19,12 +21,12 @@ public record ProductDTO(
         String imgUrl,
 
         @NotEmpty(message = "O produto deve ter pelo menos uma categoria")
-        List<CategoryDTO> categories
+        Set<CategoryDTO> categories
 ) {
 
     public ProductDTO(Product entity) {
         this(entity.getId(), entity.getName(), entity.getDescription(), entity.getPrice(), entity.getImgUrl(),
-                entity.getCategories().stream().map(CategoryDTO::new).toList());
+                entity.getCategories().stream().map(CategoryDTO::new).collect(Collectors.toSet()));
     }
 
 }
