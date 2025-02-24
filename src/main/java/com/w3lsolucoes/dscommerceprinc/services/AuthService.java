@@ -1,7 +1,7 @@
 package com.w3lsolucoes.dscommerceprinc.services;
 
 import com.w3lsolucoes.dscommerceprinc.entities.User;
-import com.w3lsolucoes.dscommerceprinc.services.exceptions.ForbiddenException;
+import com.w3lsolucoes.dscommerceprinc.controllers.handlers.exceptions.ForbiddenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,12 +1,11 @@
 package com.w3lsolucoes.dscommerceprinc.services;
 
 import com.w3lsolucoes.dscommerceprinc.dto.OrderDTO;
-import com.w3lsolucoes.dscommerceprinc.dto.OrderItemDTO;
 import com.w3lsolucoes.dscommerceprinc.entities.*;
 import com.w3lsolucoes.dscommerceprinc.repositories.OrderItemRepository;
 import com.w3lsolucoes.dscommerceprinc.repositories.OrderRepository;
 import com.w3lsolucoes.dscommerceprinc.repositories.ProductRepository;
-import com.w3lsolucoes.dscommerceprinc.services.exceptions.ResourceNotFoundException;
+import com.w3lsolucoes.dscommerceprinc.controllers.handlers.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

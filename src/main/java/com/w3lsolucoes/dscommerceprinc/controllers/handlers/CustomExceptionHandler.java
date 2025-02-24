@@ -1,10 +1,8 @@
 package com.w3lsolucoes.dscommerceprinc.controllers.handlers;
 
-import com.w3lsolucoes.dscommerceprinc.dto.CustomError;
-import com.w3lsolucoes.dscommerceprinc.dto.ValidationError;
-import com.w3lsolucoes.dscommerceprinc.services.exceptions.DataBaseException;
-import com.w3lsolucoes.dscommerceprinc.services.exceptions.ForbiddenException;
-import com.w3lsolucoes.dscommerceprinc.services.exceptions.ResourceNotFoundException;
+import com.w3lsolucoes.dscommerceprinc.controllers.handlers.exceptions.DataBaseException;
+import com.w3lsolucoes.dscommerceprinc.controllers.handlers.exceptions.ForbiddenException;
+import com.w3lsolucoes.dscommerceprinc.controllers.handlers.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

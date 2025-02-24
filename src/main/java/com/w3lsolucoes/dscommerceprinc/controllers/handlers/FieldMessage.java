@@ -1,4 +1,4 @@
-package com.w3lsolucoes.dscommerceprinc.dto;
+package com.w3lsolucoes.dscommerceprinc.controllers.handlers;
 
 public class FieldMessage {
 
